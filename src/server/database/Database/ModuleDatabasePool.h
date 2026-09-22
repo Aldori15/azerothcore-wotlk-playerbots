@@ -25,6 +25,7 @@
 #include "PreparedStatement.h"
 #include "StringFormat.h"
 #include <memory>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -96,6 +97,9 @@ public:
     //! Both calls consume (delete) the statement, mirroring DatabaseWorkerPool.
     void Execute(PreparedStatementBase* stmt);
     PreparedQueryResult Query(PreparedStatementBase* stmt);
+
+    //! Applies connection-aware escaping for the configured database collation.
+    void EscapeString(std::string& str);
 
     //! Parameter count for a prepared statement index, for constructing typed
     //! PreparedStatement<T> objects module-side.

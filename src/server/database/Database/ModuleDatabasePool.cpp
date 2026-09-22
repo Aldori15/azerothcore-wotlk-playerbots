@@ -191,6 +191,19 @@ PreparedQueryResult ModuleDatabasePool::Query(PreparedStatementBase* stmt)
     return PreparedQueryResult(result);
 }
 
+void ModuleDatabasePool::EscapeString(std::string& str)
+{
+    if (str.empty() || _connections.empty())
+        return;
+
+    std::vector<char> buffer(str.size() * 2 + 1);
+    MySQLConnection* conn = GetFreeConnection();
+    std::size_t const escapedLength = conn->EscapeString(buffer.data(), str.c_str(), str.size());
+    conn->Unlock();
+
+    str.assign(buffer.data(), escapedLength);
+}
+
 uint8 ModuleDatabasePool::GetPreparedStatementParamCount(uint32 index) const
 {
     return index < _preparedStatementSize.size() ? _preparedStatementSize[index] : 0;
