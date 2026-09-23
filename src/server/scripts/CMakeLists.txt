@@ -228,6 +228,10 @@ add_library(scripts STATIC
   ${SCRIPT_MODULE_PRIVATE_SCRIPTLOADER}
   ${PRIVATE_SOURCES_SCRIPTS})
 
+if(MSVC)
+  set_property(TARGET scripts PROPERTY VS_NO_COMPILE_BATCHING ON)
+endif()
+
 target_link_libraries(scripts
   PRIVATE
     acore-core-interface
