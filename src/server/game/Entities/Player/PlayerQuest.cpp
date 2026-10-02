@@ -282,7 +282,7 @@ bool Player::CanAddQuest(Quest const* quest, bool msg)
         else if (msg2 != EQUIP_ERR_OK)
         {
             bool canStoreInKeyring = false;
-            if (GetSession() && !GetSession()->IsBot() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
+            if (GetSession() && !GetSession()->IsHeadless() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
             {
                 if (ItemTemplate const* itemTemplate = sObjectMgr->GetItemTemplate(srcitem))
                 {
@@ -1444,7 +1444,7 @@ bool Player::GiveQuestSourceItem(Quest const* quest)
             return true;
 
         // Prefer keyring when configured, then fall back to normal bag storage.
-        if (GetSession() && !GetSession()->IsBot() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
+        if (GetSession() && !GetSession()->IsHeadless() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
         {
             if (ItemTemplate const* itemTemplate = sObjectMgr->GetItemTemplate(srcitem))
             {

@@ -935,7 +935,7 @@ InventoryResult Player::CanStoreItem_InSpecificSlot(uint8 bag, uint8 slot, ItemP
             {
                 bool canUseKeyring = (pProto->BagFamily & BAG_FAMILY_MASK_KEYS) != 0;
 
-                if (!canUseKeyring && GetSession() && !GetSession()->IsBot() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
+                if (!canUseKeyring && GetSession() && !GetSession()->IsHeadless() && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false))
                 {
                     // Custom behavior: allow player quest items to persist in keyring slots.
                     canUseKeyring = pProto->Bonding == BIND_QUEST_ITEM

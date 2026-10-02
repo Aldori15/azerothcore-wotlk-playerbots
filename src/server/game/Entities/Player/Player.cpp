@@ -13903,7 +13903,7 @@ LootItem* Player::StoreLootItem(uint8 lootSlot, Loot* loot, InventoryResult& msg
     }
 
     bool useQuestKeyringStorage = GetSession()
-        && !GetSession()->IsBot()
+        && !GetSession()->IsHeadless()
         && sConfigMgr->GetOption<bool>("QuestLootToKeyring.Enabled", false)
         && (qitem || HasQuestForItem(item->itemid));
 
